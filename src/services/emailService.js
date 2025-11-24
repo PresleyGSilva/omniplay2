@@ -13,6 +13,9 @@ function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host 
     <p>A partir de agora você conta com uma plataforma moderna, estável e com suporte dedicado para garantir a melhor experiência!</p>
 
     <hr>
+    
+    <h3>📞 Suporte Oficial</h3>
+    <p><a href="https://www.omniplay.me/suporte/">Clique aqui para acessar o suporte</a></p>
 
     <h3>🔐 Dados de Acesso</h3>
     <p><strong>Usuário:</strong> ${username}</p>

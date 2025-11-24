@@ -7,7 +7,7 @@ async function testarEnvio() {
     console.log("📨 Enviando email de teste...");
 
     await enviarEmailAcesso({
-      email: "grupookgo@gmail.com",
+      email: "presleygs.dev@gmail.com",
       nome: "Teste OmniPlay",
       username: "usuarioTeste",
       password: "123456",
