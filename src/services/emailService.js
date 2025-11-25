@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 // ==============================
-// 📨 TEMPLATE DO E-MAIL
+// 📨 TEMPLATE DO E-MAI
 // ==============================
 function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host }) {
   return `
