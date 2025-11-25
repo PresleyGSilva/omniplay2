@@ -1,8 +1,85 @@
 const nodemailer = require("nodemailer");
 
-// ==============================
-// 📨 TEMPLATE DO E-MAI
-// ==============================
+// ==========================================
+// 🔥 LISTA DE SMTPs ROTATIVOS (ANTI-BLOQUEIO)
+// → Adicione quantos quiser!
+// ==========================================
+const smtpList = [
+  // 1) OMNIPLAY
+  {
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    pool: true,
+    maxConnections: 3,
+    maxMessages: 10,
+    rateLimit: 5,
+    auth: {
+      user: "omniplayoficial@omniplay.sbs",
+      pass: "130829Be@16"
+    }
+  },
+
+  // 2) IRONPLAY (NOVO QUE VOCÊ PEDIU)
+  {
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    pool: true,
+    maxConnections: 3,
+    maxMessages: 10,
+    rateLimit: 5,
+    auth: {
+      user: "suporte@ironplayoficial.com.br",
+      pass: "130829Be@16"
+    }
+  },
+
+  // 3) FIREPLAY
+  {
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    pool: true,
+    maxConnections: 3,
+    maxMessages: 10,
+    rateLimit: 5,
+    auth: {
+      user: "contato@fireplaytv.com",
+      pass: "1Nmn|0X3C1^u"
+    }
+  },
+
+  // 4) VISIONPLAY
+  {
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    pool: true,
+    maxConnections: 3,
+    maxMessages: 10,
+    rateLimit: 5,
+    auth: {
+      user: "visionplayoficial@visionplay.lat",
+      pass: "130829Be@16"
+    }
+  }
+];
+
+let smtpIndex = 0;
+
+// ==========================================
+// 🔄 Função para alternar automaticamente SMTP
+// ==========================================
+function getNextSMTP() {
+  const smtp = smtpList[smtpIndex];
+  smtpIndex = (smtpIndex + 1) % smtpList.length;
+  return smtp;
+}
+
+// ==========================================
+// 📨 TEMPLATE DO E-MAIL
+// ==========================================
 function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host }) {
   return `
   <div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #333;">
@@ -24,49 +101,26 @@ function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host 
 
     <hr>
 
-    <h3>📱 Download no Android / IOS / TV Box</h3>
-
-    <p><strong>Android (Celular e TV):</strong><br>
-    <a href="https://go.aftvnews.com/1636387">Clique aqui para instalar</a></p>
-
-    <p><strong>TV Box – via Downloader:</strong><br>
-    Abra o app Downloader e digite <strong>1636387</strong></p>
-
-    <p><strong>iPhone – XCloud:</strong><br>
-    <a href="https://apps.apple.com/app/id6471106231">Baixar na App Store</a></p>
+    <h3>📱 Apps e Instalações</h3>
+    <p><a href="https://go.aftvnews.com/1636387">Baixar Android (App)</a></p>
+    <p><strong>Downloader Android/TV:</strong> 1636387</p>
+    <p><a href="https://apps.apple.com/app/id6471106231">Baixar no iPhone</a></p>
 
     <hr>
 
-    <h3>🟣 Assist Plus (Roku, LG, Samsung, Android)</h3>
-    <p><strong>Código:</strong> 1011<br>
-    <strong>Usuário:</strong> ${username}<br>
-    <strong>Senha:</strong> ${password}</p>
+    <h3>🔸 DNS</h3>
+    <p><strong>XCIPTV:</strong> ${dns}</p>
+    <p><strong>Smarters:</strong> ${dns.replace("http://", "http:/")}</p>
 
     <hr>
 
-    <h3>🟠 XCloud (Roku, LG, Samsung)</h3>
-    <p><strong>Provedor:</strong> 11aa ou 11aa1<br>
-    <strong>Usuário:</strong> ${username}<br>
-    <strong>Senha:</strong> ${password}</p>
+    <h3>🔗 Listas M3U e HLS</h3>
+    <p><strong>M3U:</strong> ${dns}/get.php?username=${username}&password=${password}&type=m3u_plus&output=mpegts</p>
+    <p><strong>HLS:</strong> ${dns}/get.php?username=${username}&password=${password}&type=m3u_plus&output=hls</p>
 
     <hr>
 
-    <h3>🔸 DNS para XCIPTV / IPTV Smarters</h3>
-    <p><strong>DNS XCIPTV:</strong><br>${dns}</p>
-    <p><strong>DNS IPTV Smarters:</strong><br>${dns.replace("http://", "http:/")}</p>
-    <p style="color:red;">⚠️ Use exatamente como está (apenas 1 “/”).</p>
-
-    <hr>
-
-    <h3>🔗 Listas M3U, HLS e SSIPTV</h3>
-    <p><strong>M3U:</strong><br> ${dns}/get.php?username=${username}&password=${password}&type=m3u_plus&output=mpegts</p>
-    <p><strong>HLS:</strong><br> ${dns}/get.php?username=${username}&password=${password}&type=m3u_plus&output=hls</p>
-    <p><strong>SSIPTV:</strong><br> http://e.${dns_host}/p/${username}/${password}/ssiptv</p>
-
-    <hr>
-
-    <h3>🎛️ TVs Samsung Antigas (DNS STB / SmartUp)</h3>
-    <p>135.148.144.87</p>
+    <p><strong>SSIPTV:</strong> http://e.${dns_host}/p/${username}/${password}/ssiptv</p>
 
     <hr>
 
@@ -77,38 +131,63 @@ function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host 
   `;
 }
 
-// ==============================
-// 📬 FUNÇÃO PARA ENVIAR E-MAIL
-// ==============================
+// ==========================================
+// 📬 FUNÇÃO DE ENVIO COM FALLBACK
+// ==========================================
 async function enviarEmailAcesso({ email, nome, username, password, expires_at }) {
   const dns = "http://minhatv.hub2.top";
   const dns_host = "minhatv.hub2.top";
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: process.env.EMAIL_SECURE === "true",
-    auth: {
-      user: process.env.EMAIL_FROM,
-      pass: process.env.EMAIL_PASS
+  const html = gerarEmailAcesso({
+    nome,
+    username,
+    password,
+    expires_at,
+    dns,
+    dns_host
+  });
+
+  // Tenta enviar com cada SMTP da lista
+  for (let i = 0; i < smtpList.length; i++) {
+    const smtp = getNextSMTP();
+
+    const transporter = nodemailer.createTransport({
+      ...smtp,
+      tls: { rejectUnauthorized: false }
+    });
+
+    try {
+      const info = await transporter.sendMail({
+        from: `Mídias Brasil <${smtp.auth.user}>`,
+        to: email,
+        subject: "Seus dados de acesso – Mídias Brasil",
+        html
+      });
+
+      console.log("✔ Email enviado por:", smtp.auth.user);
+      return true;
+
+    } catch (error) {
+      console.error("❌ Erro com SMTP:", smtp.auth.user);
+      console.error(error.response || error.message);
+
+      // SE FOR BLOQUEIO DO HPAINEL (HOSTINGER)
+      if (
+        error.responseCode === 554 ||
+        error.message.includes("Disabled by user") ||
+        error.message.includes("4.7.1") ||
+        error.message.includes("5.7.1")
+      ) {
+        console.log("⚠ SMTP bloqueado. Pulando para o próximo...");
+        continue;
+      }
+
+      // Outros erros → aborta
+      throw error;
     }
-  });
+  }
 
-  await transporter.sendMail({
-    from: `Mídias Brasil <${process.env.EMAIL_FROM}>`,
-    to: email,
-    subject: "Seus dados de acesso – Mídias Brasil",
-    html: gerarEmailAcesso({
-      nome,
-      username,
-      password,
-      expires_at,
-      dns,
-      dns_host
-    }),
-  });
-
-  return true;
+  throw new Error("🚨 Nenhum SMTP disponível para envio.");
 }
 
 module.exports = {
