@@ -3,7 +3,7 @@ const planos = [
   { nome: 'Mensal', valor: 24.90, packageId: "rdqLkQWAE9" },
   { nome: 'Trimestral', valor: 43.90, packageId: "bOxLAQLZ7a" },
   { nome: 'Semestral', valor: 72.90, packageId: "z2BDvoWrkj" },
-  { nome: 'Anual', valor: 137.90, packageId: "EMeWepDnN9" }
+  { nome: 'Anual', valor: 138.90, packageId: "EMeWepDnN9" }
 ];
 
 // 🔎 Identificar plano pelo valor da venda
