@@ -1,14 +1,66 @@
-// 🔵 Tabela dos planos + packageId do SIGMA
+// =======================================================
+// 🔵 TABELA DE PLANOS (Átomo Pay → SIGMA)
+// Suporta vários checkouts que têm o mesmo valor
+// =======================================================
+
 const planos = [
-  { nome: 'Mensal', valor: 24.90, packageId: "rdqLkQWAE9" },
-  { nome: 'Trimestral', valor: 43.90, packageId: "bOxLAQLZ7a" },
-  { nome: 'Semestral', valor: 72.90, packageId: "z2BDvoWrkj" },
-  { nome: 'Anual', valor: 138.90, packageId: "EMeWepDnN9" }
+  // 💠 MENSAL – 1 Mês
+  { 
+    nome: "Mensal",
+    valores: [24.90],               // vários checkouts → mesmo plano
+    packageId: "rdqLkQWAE9"
+  },
+
+  // 💠 TRIMESTRAL – 3 Meses
+  { 
+    nome: "Trimestral",
+    valores: [43.90, 44.90],        // você possui 2 valores diferentes
+    packageId: "bOxLAQLZ7a"
+  },
+
+  // 💠 SEMESTRAL – 6 Meses
+  { 
+    nome: "Semestral",
+    valores: [72.90, 74.90],        // também tem 2 preços diferentes
+    packageId: "z2BDvoWrkj"
+  },
+
+  // 💠 ANUAL – 12 Meses
+  { 
+    nome: "Anual",
+    valores: [138.90],              // 2 checkouts, 1 valor
+    packageId: "EMeWepDnN9"
+  },
+
+  // 💠 BLACK FRIDAY – 3 anos
+  {
+    nome: "Black Friday 3 anos",
+    valores: [97.90],
+    packageId: "qK4WrQDeNj"   // coloque o ID do Sigma
+  }
 ];
 
-// 🔎 Identificar plano pelo valor da venda
-function identificarPlano(valor) {
-  return planos.find(p => Number(p.valor) === Number(valor)) || null;
+
+// =======================================================
+// 🔍 FUNÇÃO PARA IDENTIFICAR O PLANO PELO VALOR
+// Aceita múltiplos valores e retorna o plano certo
+// =======================================================
+
+function identificarPlano(valorRecebido) {
+  const valor = Number(valorRecebido);
+
+  // Procura um plano onde a lista de valores contenha o valor recebido
+  const planoEncontrado = planos.find(p => p.valores.includes(valor));
+
+  return planoEncontrado || null;
 }
 
-module.exports = { identificarPlano, planos };
+
+// =======================================================
+// 📤 EXPORTAÇÃO
+// =======================================================
+
+module.exports = {
+  planos,
+  identificarPlano
+};
