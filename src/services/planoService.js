@@ -8,35 +8,35 @@ const planos = [
   { 
     nome: "Mensal",
     valores: [24.90],               // vários checkouts → mesmo plano
-    packageId: "rdqLkQWAE9"
+    packageId: "RYAWRk1jlx"
   },
 
   // 💠 TRIMESTRAL – 3 Meses
   { 
     nome: "Trimestral",
     valores: [43.90, 44.90],        // você possui 2 valores diferentes
-    packageId: "bOxLAQLZ7a"
+    packageId: "ANKWPKDPRq"
   },
 
   // 💠 SEMESTRAL – 6 Meses
   { 
     nome: "Semestral",
     valores: [72.90, 74.90],        // também tem 2 preços diferentes
-    packageId: "z2BDvoWrkj"
+    packageId: "o231qzL4qz"
   },
 
   // 💠 ANUAL – 12 Meses
   { 
     nome: "Anual",
     valores: [138.90],              // 2 checkouts, 1 valor
-    packageId: "EMeWepDnN9"
+    packageId: "VpKDaJWRAa"
   },
 
   // 💠 BLACK FRIDAY – 3 anos
   {
     nome: "Black Friday 3 anos",
     valores: [97.90],
-    packageId: "qK4WrQDeNj"   // coloque o ID do Sigma
+    packageId: "VpKDaJWRAa"   // coloque o ID do Sigma
   }
 ];
 
