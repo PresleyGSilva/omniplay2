@@ -25,6 +25,13 @@ function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host 
     <p>Android: https://go.aftvnews.com/1636387</p>
     <p>iPhone: https://apps.apple.com/app/id6471106231</p>
 
+    <br>
+
+    <h3>🟠 APP XCLOUD (Para TVs Roku, Samsung e LG)</h3>
+    <p><strong>Provedor:</strong> 11aa ou 11aa1</p>
+    <p><strong>Usuário:</strong> ${username}</p>
+    <p><strong>Senha:</strong> ${password}</p>
+
     <hr>
 
     <h3>🔸 DNS</h3>
