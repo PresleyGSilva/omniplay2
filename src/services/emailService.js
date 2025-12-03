@@ -27,10 +27,34 @@ function gerarEmailAcesso({ nome, username, password, expires_at, dns, dns_host 
 
     <br>
 
-    <h3>🟠 APP XCLOUD (Para TVs Roku, Samsung e LG)</h3>
-    <p><strong>Provedor:</strong> 11aa ou 11aa1</p>
-    <p><strong>Usuário:</strong> ${username}</p>
-    <p><strong>Senha:</strong> ${password}</p>
+   <h3>🟠 APP SMARTERS PLAYER LITE (iOS / Android / Smart TV)</h3>
+
+<p>Baixe o app oficial:</p>
+<p>
+  👉 <a href="https://apps.apple.com/br/app/smarters-player-lite/id1628995509" 
+  style="color:#007bff;">Smarters Player Lite – App Store (iPhone/iPad)</a>
+</p>
+
+<hr>
+
+<h3>📺 Como configurar no Xtream Codes</h3>
+
+<p>Siga esta ordem ao preencher dentro do app:</p>
+
+<p><strong>1️⃣ Nome:</strong> Mídias Brasil</p>
+<p><strong>2️⃣ Usuário:</strong> ${username}</p>
+<p><strong>3️⃣ Senha:</strong> ${password}</p>
+
+<p><strong>4️⃣ URL do Servidor (DNS):</strong><br>
+<span style="color:#ff4d4d; font-size: 17px;">
+http:/minhatv.hub2.top
+</span><br>
+⚠️ Use exatamente assim: <b>apenas 1 barra depois de “http:”</b>
+</p>
+
+<hr>
+
+<p>⚠️ Se o app pedir PORTA, coloque: <strong>80</strong></p>
 
     <hr>
 
